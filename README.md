@@ -1,6 +1,8 @@
 <a name="module_array-slice-x"></a>
 
 ## array-slice-x
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Xotic750/array-slice-x.svg)](https://greenkeeper.io/)
 <a href="https://travis-ci.org/Xotic750/array-slice-x"
 title="Travis status">
 <img
