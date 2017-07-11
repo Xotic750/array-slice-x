@@ -28,7 +28,11 @@ describe('slice', function () {
 
   describe('with 1 arg', function () {
     it('returns an array of the arg', function () {
-      var o = [3, '4', {}];
+      var o = [
+        3,
+        '4',
+        {}
+      ];
       var r = slice(o);
       expect(r.length).toBe(3);
       expect(r[0]).toBe(o[0]);
@@ -39,7 +43,12 @@ describe('slice', function () {
 
   describe('with 2 args', function () {
     it('returns an array of the arg starting at the 2nd arg', function () {
-      var o = [3, '4', 5, null];
+      var o = [
+        3,
+        '4',
+        5,
+        null
+      ];
       var r = slice(o, 2);
       expect(r.length).toBe(2);
       expect(r[0]).toBe(o[2]);
@@ -49,7 +58,12 @@ describe('slice', function () {
 
   describe('with 3 args', function () {
     it('returns an array of the arg from the 2nd to the 3rd arg', function () {
-      var o = [3, '4', 5, null];
+      var o = [
+        3,
+        '4',
+        5,
+        null
+      ];
       var r = slice(o, 1, 2);
       expect(r.length).toBe(1);
       expect(r[0]).toBe(o[1]);
@@ -58,7 +72,12 @@ describe('slice', function () {
 
   describe('with negative start and no end', function () {
     it('begins at an offset from the end and includes all following elements', function () {
-      var o = [3, '4', 5, null];
+      var o = [
+        3,
+        '4',
+        5,
+        null
+      ];
       var r = slice(o, -2);
       expect(r.length).toBe(2);
       expect(r[0]).toBe(o[2]);
@@ -75,7 +94,12 @@ describe('slice', function () {
 
   describe('with negative start and positive end', function () {
     it('begins at an offset from the end and includes `end` elements', function () {
-      var o = [3, '4', { x: 1 }, null];
+      var o = [
+        3,
+        '4',
+        { x: 1 },
+        null
+      ];
 
       var r = slice(o, -2, 1);
       expect(r.length).toBe(0);
@@ -91,7 +115,12 @@ describe('slice', function () {
 
   describe('with negative start and negative end', function () {
     it('begins at `start` offset from the end and includes all elements up to `end` offset from the end', function () {
-      var o = [3, '4', { x: 1 }, null];
+      var o = [
+        3,
+        '4',
+        { x: 1 },
+        null
+      ];
       var r = slice(o, -3, -1);
       expect(r.length).toBe(2);
       expect(r[0]).toBe(o[1]);

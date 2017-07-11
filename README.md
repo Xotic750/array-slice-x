@@ -1,33 +1,29 @@
-<a name="module_array-slice-x"></a>
-
-## array-slice-x
 <a href="https://travis-ci.org/Xotic750/array-slice-x"
-title="Travis status">
+   title="Travis status">
 <img
-src="https://travis-ci.org/Xotic750/array-slice-x.svg?branch=master"
-alt="Travis status" height="18">
+   src="https://travis-ci.org/Xotic750/array-slice-x.svg?branch=master"
+   alt="Travis status" height="18"/>
 </a>
 <a href="https://david-dm.org/Xotic750/array-slice-x"
-title="Dependency status">
+   title="Dependency status">
 <img src="https://david-dm.org/Xotic750/array-slice-x.svg"
-alt="Dependency status" height="18"/>
+   alt="Dependency status" height="18"/>
 </a>
-<a
-href="https://david-dm.org/Xotic750/array-slice-x#info=devDependencies"
-title="devDependency status">
+<a href="https://david-dm.org/Xotic750/array-slice-x#info=devDependencies"
+   title="devDependency status">
 <img src="https://david-dm.org/Xotic750/array-slice-x/dev-status.svg"
-alt="devDependency status" height="18"/>
+   alt="devDependency status" height="18"/>
 </a>
 <a href="https://badge.fury.io/js/array-slice-x" title="npm version">
 <img src="https://badge.fury.io/js/array-slice-x.svg"
-alt="npm version" height="18">
+   alt="npm version" height="18"/>
 </a>
+<a name="module_array-slice-x"></a>
 
-Array slice module.
+## array-slice-x
+Cross-browser array slicer.
 
-Requires ES3 or above.
-
-**Version**: 1.0.1  
+**Version**: 1.1.0  
 **Author**: Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
