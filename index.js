@@ -1,6 +1,6 @@
 /**
  * @file Cross-browser array slicer.
- * @version 1.1.0
+ * @version 1.2.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -44,12 +44,12 @@ var slice = function _slice(array, start, end) {
  * array object selected from begin to end (end not included). The original
  * array will not be modified.
  *
- * @param {Array|Object} array The array to slice.
- * @param {number} [start] Zero-based index at which to begin extraction.
+ * @param {Array|Object} array - The array to slice.
+ * @param {number} [start] - Zero-based index at which to begin extraction.
  *  A negative index can be used, indicating an offset from the end of the
  *  sequence. slice(-2) extracts the last two elements in the sequence.
  *  If begin is undefined, slice begins from index 0.
- * @param {number} [end] Zero-based index before which to end extraction.
+ * @param {number} [end] - Zero-based index before which to end extraction.
  *  Slice extracts up to but not including end. For example, slice(1,4)
  *  extracts the second element through the fourth element (elements indexed
  *  1, 2, and 3).
@@ -60,7 +60,7 @@ var slice = function _slice(array, start, end) {
  *  sequence (arr.length).
  *  If end is greater than the length of the sequence, slice extracts through
  *  the end of the sequence (arr.length).
- * @return {Array} A new array containing the extracted elements.
+ * @returns {Array} A new array containing the extracted elements.
  * @example
  * var slice = require('array-slice-x');
  * var fruits = ['Banana', 'Orange', 'Lemon', 'Apple', 'Mango'];
