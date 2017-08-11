@@ -1,6 +1,6 @@
 /**
  * @file Cross-browser array slicer.
- * @version 1.2.0
+ * @version 2.0.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -13,14 +13,17 @@ var toObject = require('to-object-x');
 var toInteger = require('to-integer-x');
 var toLength = require('to-length-x');
 var isUndefined = require('validate.io-undefined');
+var isString = require('is-string');
+var splitString = require('has-boxed-string-x') === false;
 
 var setRelative = function _seedRelative(value, length) {
   return value < 0 ? Math.max(length + value, 0) : Math.min(value, length);
 };
 
-var slice = function _slice(array, start, end) {
+var $slice = function slice(array, start, end) {
   var object = toObject(array);
-  var length = toLength(object.length);
+  var iterable = splitString && isString(object) ? object.split('') : object;
+  var length = toLength(iterable.length);
   var k = setRelative(toInteger(start), length);
   var relativeEnd = isUndefined(end) ? length : toInteger(end);
   var finalEnd = setRelative(relativeEnd, length);
@@ -28,8 +31,8 @@ var slice = function _slice(array, start, end) {
   val.length = Math.max(finalEnd - k, 0);
   var next = 0;
   while (k < finalEnd) {
-    if (k in object) {
-      val[next] = object[k];
+    if (k in iterable) {
+      val[next] = iterable[k];
     }
 
     next += 1;
@@ -69,4 +72,4 @@ var slice = function _slice(array, start, end) {
  * // fruits contains ['Banana', 'Orange', 'Lemon', 'Apple', 'Mango']
  * // citrus contains ['Orange','Lemon']
  */
-module.exports = slice;
+module.exports = $slice;
