@@ -1,6 +1,6 @@
 /**
  * @file Cross-browser array slicer.
- * @version 2.0.0
+ * @version 2.1.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -15,12 +15,14 @@ var toLength = require('to-length-x');
 var isUndefined = require('validate.io-undefined');
 var isString = require('is-string');
 var splitString = require('has-boxed-string-x') === false;
+var isArguments = require('is-arguments');
+var nativeSlice = Array.prototype.slice;
 
-var setRelative = function _seedRelative(value, length) {
+var setRelative = function _setRelative(value, length) {
   return value < 0 ? Math.max(length + value, 0) : Math.min(value, length);
 };
 
-var $slice = function slice(array, start, end) {
+var internalSlice = function slice(array, start, end) {
   var object = toObject(array);
   var iterable = splitString && isString(object) ? object.split('') : object;
   var length = toLength(iterable.length);
@@ -41,6 +43,43 @@ var $slice = function slice(array, start, end) {
 
   return val;
 };
+
+var $slice;
+try {
+  $slice = function slice(array, start, end) {
+    var object = toObject(array);
+    if (isArguments(object)) {
+      return internalSlice(object, start, end);
+    }
+
+    var iterable = splitString && isString(object) ? object.split('') : object;
+
+    return nativeSlice.apply(iterable, internalSlice(arguments, 1));
+  };
+
+  var str = $slice('ab');
+  if (str.length !== 2 || str[0] !== 'a' || str[1] !== 'b') {
+    throw new Error('failed string');
+  }
+
+  var obj = $slice({ 1: 1, length: 2 });
+  if (obj.length !== 2 || isUndefined(obj[0]) === false || 0 in obj || obj[1] !== 1) {
+    throw new Error('failed object');
+  }
+
+  var args = (function () {
+    return arguments;
+  }(void 0, 2));
+
+  if (args.length !== 2 || isUndefined(args[0]) === false || args[1] !== 2) {
+    throw new Error('failed arguments');
+  }
+
+} catch (ignore) {
+  // eslint-disable-next-line no-console
+  console.error(ignore);
+  $slice = internalSlice;
+}
 
 /**
  * The slice() method returns a shallow copy of a portion of an array into a new
