@@ -23,18 +23,18 @@
 ## array-slice-x
 Cross-browser array slicer.
 
-**Version**: 2.1.0  
+**Version**: 2.2.0  
 **Author**: Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
 <a name="exp_module_array-slice-x--module.exports"></a>
 
-### `module.exports` ⇒ <code>Array</code> ⏏
+### `module.exports(array, [start], [end])` ⇒ <code>Array</code> ⏏
 The slice() method returns a shallow copy of a portion of an array into a new
 array object selected from begin to end (end not included). The original
 array will not be modified.
 
-**Kind**: Exported member  
+**Kind**: Exported function  
 **Returns**: <code>Array</code> - A new array containing the extracted elements.  
 
 | Param | Type | Description |
