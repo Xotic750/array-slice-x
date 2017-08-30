@@ -1,6 +1,6 @@
 /**
  * @file Cross-browser array slicer.
- * @version 2.2.0
+ * @version 3.0.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -18,15 +18,56 @@ var splitString = require('has-boxed-string-x') === false;
 var isArguments = require('is-arguments');
 var nativeSlice = Array.prototype.slice;
 
+var implemented;
+var worksWithDOMElements;
+if (nativeSlice) {
+  try {
+    var arr = nativeSlice.call([
+      1,
+      2,
+      3
+    ], 1, 2);
+
+    implemented = arr.length === 1 && arr[0] === 2;
+  } catch (ignore) {}
+
+  if (implemented) {
+    try {
+      // Can't be used with DOM elements in IE < 9
+      nativeSlice.call(document.documentElement);
+      worksWithDOMElements = true;
+    } catch (ignore) {}
+  }
+}
+
 var hasArgumentsLengthBug = (function () {
   return arguments.length !== 1;
 }(1));
+
+var argsToArray;
+if (hasArgumentsLengthBug) {
+  var isDigits = function _isDigits(key) {
+    return (/^\d+$/).test(key);
+  };
+
+  argsToArray = function _argsToArray(args) {
+    var array = [];
+    // eslint-disable-next-line no-restricted-syntax
+    for (var arg in args) {
+      if (isDigits(arg)) {
+        array[array.length] = arg;
+      }
+    }
+
+    return array;
+  };
+}
 
 var setRelative = function _setRelative(value, length) {
   return value < 0 ? Math.max(length + value, 0) : Math.min(value, length);
 };
 
-var internalSlice = function slice(object, start, end) {
+var internalSlice = function _internalSlice(object, start, end) {
   var length = toLength(object.length);
   var k = setRelative(toInteger(start), length);
   var relativeEnd = isUndefined(end) ? length : toInteger(end);
@@ -78,11 +119,17 @@ var internalSlice = function slice(object, start, end) {
  */
 module.exports = function slice(array, start, end) {
   var object = toObject(array);
-  if (hasArgumentsLengthBug === false && isArguments(object)) {
-    return internalSlice(object, start, end);
+  var iterable;
+
+  if (isArguments(object)) {
+    iterable = argsToArray ? argsToArray(object) : object;
+    return internalSlice(iterable, start, end);
   }
 
-  var iterable = splitString && isString(object) ? object.split('') : object;
+  iterable = splitString && isString(object) ? object.split('') : object;
+  if (implemented !== true || worksWithDOMElements !== true) {
+    return internalSlice(iterable, start, end);
+  }
 
   return nativeSlice.apply(iterable, internalSlice(arguments, 1));
 };
