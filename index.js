@@ -17,6 +17,7 @@ var isString = require('is-string');
 var splitString = require('has-boxed-string-x') === false;
 var isArguments = require('is-arguments');
 var nativeSlice = Array.prototype.slice;
+var documentElement = typeof document !== 'undefined' && document.documentElement;
 
 var implemented;
 var worksWithDOMElements;
@@ -31,10 +32,10 @@ if (nativeSlice) {
     implemented = arr.length === 1 && arr[0] === 2;
   } catch (ignore) {}
 
-  if (implemented) {
+  if (implemented && documentElement) {
     try {
       // Can't be used with DOM elements in IE < 9
-      nativeSlice.call(document.documentElement);
+      nativeSlice.call(documentElement);
       worksWithDOMElements = true;
     } catch (ignore) {}
   }
