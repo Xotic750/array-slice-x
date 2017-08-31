@@ -1,6 +1,6 @@
 /**
  * @file Cross-browser array slicer.
- * @version 3.0.0
+ * @version 3.1.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -30,38 +30,13 @@ if (nativeSlice) {
     ], 1, 2);
 
     implemented = arr.length === 1 && arr[0] === 2;
-  } catch (ignore) {}
 
-  if (implemented && documentElement) {
-    try {
-      // Can't be used with DOM elements in IE < 9
+    if (implemented && documentElement) {
       nativeSlice.call(documentElement);
       worksWithDOMElements = true;
-    } catch (ignore) {}
-  }
-}
-
-var hasArgumentsLengthBug = (function () {
-  return arguments.length !== 1;
-}(1));
-
-var argsToArray;
-if (hasArgumentsLengthBug) {
-  var isDigits = function _isDigits(key) {
-    return (/^\d+$/).test(key);
-  };
-
-  argsToArray = function _argsToArray(args) {
-    var array = [];
-    // eslint-disable-next-line no-restricted-syntax
-    for (var arg in args) {
-      if (isDigits(arg)) {
-        array[array.length] = arg;
-      }
     }
 
-    return array;
-  };
+  } catch (ignore) {}
 }
 
 var setRelative = function _setRelative(value, length) {
@@ -120,17 +95,14 @@ var internalSlice = function _internalSlice(object, start, end) {
  */
 module.exports = function slice(array, start, end) {
   var object = toObject(array);
-  var iterable;
-
   if (isArguments(object)) {
-    iterable = argsToArray ? argsToArray(object) : object;
-    return internalSlice(iterable, start, end);
+    return internalSlice(object, start, end);
   }
 
-  iterable = splitString && isString(object) ? object.split('') : object;
-  if (implemented !== true || worksWithDOMElements !== true) {
-    return internalSlice(iterable, start, end);
+  var iterable = splitString && isString(object) ? object.split('') : object;
+  if (implemented && (worksWithDOMElements || iterable !== object)) {
+    return nativeSlice.apply(iterable, internalSlice(arguments, 1));
   }
 
-  return nativeSlice.apply(iterable, internalSlice(arguments, 1));
+  return internalSlice(iterable, start, end);
 };
