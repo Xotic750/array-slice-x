@@ -1,6 +1,6 @@
 /**
  * @file Cross-browser array slicer.
- * @version 3.1.0
+ * @version 3.2.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -10,58 +10,27 @@
 'use strict';
 
 var toObject = require('to-object-x');
-var toInteger = require('to-integer-x');
-var toLength = require('to-length-x');
-var isUndefined = require('validate.io-undefined');
-var isString = require('is-string');
-var splitString = require('has-boxed-string-x') === false;
 var isArguments = require('is-arguments');
+var isString = require('is-string');
+var attempt = require('attempt-x');
+var arrayLikeSlice = require('array-like-slice-x');
 var nativeSlice = Array.prototype.slice;
-var documentElement = typeof document !== 'undefined' && document.documentElement;
 
-var implemented;
-var worksWithDOMElements;
-if (nativeSlice) {
-  try {
-    var arr = nativeSlice.call([
-      1,
-      2,
-      3
-    ], 1, 2);
+var res = attempt.call([
+  1,
+  2,
+  3
+], nativeSlice, 1, 2);
 
-    implemented = arr.length === 1 && arr[0] === 2;
-
-    if (implemented && documentElement) {
-      nativeSlice.call(documentElement);
-      worksWithDOMElements = true;
-    }
-
-  } catch (ignore) {}
+var failArr = res.threw || res.value.length !== 1 || res.value[0] !== 2;
+var failStr;
+var failDOM;
+if (failArr === false) {
+  res = attempt.call('abc', nativeSlice, 1, 2);
+  failStr = res.threw || res.value.length !== 1 || res.value[0] !== 'b';
+  var doc = typeof document !== 'undefined' && document;
+  failDOM = doc && attempt.call(doc.documentElement, nativeSlice).threw;
 }
-
-var setRelative = function _setRelative(value, length) {
-  return value < 0 ? Math.max(length + value, 0) : Math.min(value, length);
-};
-
-var internalSlice = function _internalSlice(object, start, end) {
-  var length = toLength(object.length);
-  var k = setRelative(toInteger(start), length);
-  var relativeEnd = isUndefined(end) ? length : toInteger(end);
-  var finalEnd = setRelative(relativeEnd, length);
-  var val = [];
-  val.length = Math.max(finalEnd - k, 0);
-  var next = 0;
-  while (k < finalEnd) {
-    if (k in object) {
-      val[next] = object[k];
-    }
-
-    next += 1;
-    k += 1;
-  }
-
-  return val;
-};
 
 /**
  * The slice() method returns a shallow copy of a portion of an array into a new
@@ -95,14 +64,9 @@ var internalSlice = function _internalSlice(object, start, end) {
  */
 module.exports = function slice(array, start, end) {
   var object = toObject(array);
-  if (isArguments(object)) {
-    return internalSlice(object, start, end);
+  if (failArr || failDOM || (failStr && isString(object)) || isArguments(object)) {
+    return arrayLikeSlice(object, start, end);
   }
 
-  var iterable = splitString && isString(object) ? object.split('') : object;
-  if (implemented && (worksWithDOMElements || iterable !== object)) {
-    return nativeSlice.apply(iterable, internalSlice(arguments, 1));
-  }
-
-  return internalSlice(iterable, start, end);
+  return nativeSlice.apply(object, arrayLikeSlice(arguments, 1));
 };
