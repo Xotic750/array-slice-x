@@ -21,8 +21,7 @@ if (typeof module === 'object' && module.exports) {
   slice = returnExports;
 }
 
-var documentElement = typeof document !== 'undefined' && document.documentElement;
-var itHasDocumentElement = documentElement ? it : xit;
+var itHasDoc = typeof document !== 'undefined' && document ? it : xit;
 
 describe('slice', function () {
   it('exports a function', function () {
@@ -189,7 +188,7 @@ describe('slice', function () {
     expect(r).toEqual(o);
   });
 
-  itHasDocumentElement('works with DOM nodes', function () {
+  itHasDoc('works with DOM nodes', function () {
     var fragment = document.createDocumentFragment();
     var expectedDOM = new Array(5).fill().map(function () {
       var div = document.createElement('div');
