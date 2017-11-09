@@ -1,6 +1,6 @@
 /**
  * @file Cross-browser array slicer.
- * @version 3.4.0
+ * @version 3.5.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -13,7 +13,7 @@ var toObject = require('to-object-x');
 var isArguments = require('is-arguments');
 var isArray = require('is-array-x');
 var arrayLikeSlice = require('array-like-slice-x');
-var nativeSlice = Array.prototype.slice;
+var nativeSlice = require('cached-constructors-x').Array.prototype.slice;
 var isString;
 var failArr;
 var failDOM;
