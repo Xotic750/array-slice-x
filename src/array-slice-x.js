@@ -1,35 +1,32 @@
 /**
  * @file Cross-browser array slicer.
- * @version 3.5.0
- * @author Xotic750 <Xotic750@gmail.com>
- * @copyright  Xotic750
+ * @version 3.5.0.
+ * @author Xotic750 <Xotic750@gmail.com>.
+ * @copyright  Xotic750.
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
- * @module array-slice-x
+ * @module Array-slice-x.
  */
 
-'use strict';
+const toObject = require('to-object-x');
+const isArguments = require('is-arguments');
+const isArray = require('is-array-x');
+const arrayLikeSlice = require('array-like-slice-x');
+const nativeSlice = require('cached-constructors-x').Array.prototype.slice;
 
-var toObject = require('to-object-x');
-var isArguments = require('is-arguments');
-var isArray = require('is-array-x');
-var arrayLikeSlice = require('array-like-slice-x');
-var nativeSlice = require('cached-constructors-x').Array.prototype.slice;
-var isString;
-var failArr;
-var failDOM;
+let isString;
+let failArr;
+let failDOM;
+
 if (nativeSlice) {
-  var attempt = require('attempt-x');
-  var res = attempt.call([
-    1,
-    2,
-    3
-  ], nativeSlice, 1, 2);
+  const attempt = require('attempt-x');
+  let res = attempt.call([1, 2, 3], nativeSlice, 1, 2);
 
   failArr = res.threw || isArray(res.value) === false || res.value.length !== 1 || res.value[0] !== 2;
+
   if (failArr === false) {
     res = attempt.call('abc', nativeSlice, 1, 2);
     isString = (res.threw || res.value.length !== 1 || res.value[0] !== 'b') && require('is-string');
-    var doc = typeof document !== 'undefined' && document;
+    const doc = typeof document !== 'undefined' && document;
     failDOM = doc && attempt.call(doc.documentElement, nativeSlice).threw;
   }
 } else {
@@ -41,7 +38,7 @@ if (nativeSlice) {
  * array object selected from begin to end (end not included). The original
  * array will not be modified.
  *
- * @param {Array|Object} array - The array to slice.
+ * @param {Array|object} array - The array to slice.
  * @param {number} [start] - Zero-based index at which to begin extraction.
  *  A negative index can be used, indicating an offset from the end of the
  *  sequence. slice(-2) extracts the last two elements in the sequence.
@@ -67,7 +64,8 @@ if (nativeSlice) {
  * // citrus contains ['Orange','Lemon']
  */
 module.exports = function slice(array, start, end) {
-  var object = toObject(array);
+  const object = toObject(array);
+
   if (failArr || (failDOM && isArray(object) === false) || (isString && isString(object)) || isArguments(object)) {
     return arrayLikeSlice(object, start, end);
   }
