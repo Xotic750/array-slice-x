@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-15T07:44:15.300Z",
+  "date": "2019-07-15T10:57:53.528Z",
   "describe": "",
   "description": "Cross-browser array slicer.",
   "file": "array-slice-x.js",
-  "hash": "2d29c04dff2356578589",
+  "hash": "4f7e79c03c7e95f24a0f",
   "license": "MIT",
-  "version": "4.0.0"
+  "version": "4.0.1"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -528,7 +528,7 @@ function attempt(fn) {
 }
 
 
-// CONCATENATED MODULE: ./node_modules/is-array-x/node_modules/to-string-tag-x/dist/to-string-tag-x.esm.js
+// CONCATENATED MODULE: ./node_modules/to-string-tag-x/dist/to-string-tag-x.esm.js
 var nativeObjectToString = {}.toString;
 /**
  * The `toStringTag` method returns "[object type]", where type is the
@@ -647,29 +647,6 @@ function toBoolean(value) {
 
 function isFalsey(value) {
   return !toBoolean(value);
-}
-
-
-// CONCATENATED MODULE: ./node_modules/to-string-tag-x/dist/to-string-tag-x.esm.js
-var to_string_tag_x_esm_nativeObjectToString = {}.toString;
-/**
- * The `toStringTag` method returns "[object type]", where type is the
- * object type.
- *
- * @param {*} [value] - The object of which to get the object type string.
- * @returns {string} The object type string.
- */
-
-function to_string_tag_x_esm_toStringTag(value) {
-  if (value === null) {
-    return '[object Null]';
-  }
-
-  if (typeof value === 'undefined') {
-    return '[object Undefined]';
-  }
-
-  return to_string_tag_x_esm_nativeObjectToString.call(value);
 }
 
 
@@ -1263,7 +1240,7 @@ function isFunction(value, allowClass) {
     return false;
   }
 
-  var strTag = to_string_tag_x_esm_toStringTag(value);
+  var strTag = toStringTag(value);
   return strTag === funcTag || strTag === genTag || strTag === asyncTag;
 }
 
