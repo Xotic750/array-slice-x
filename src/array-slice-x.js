@@ -47,7 +47,7 @@ const failDOM = resultDocElement ? resultDocElement.threw : false;
  *  the end of the sequence (arr.length).
  * @returns {Array} A new array containing the extracted elements.
  */
-export default function slice(array, start, end) {
+const slice = function slice(array, start, end) {
   const object = toObject(array);
 
   if (failArray || (failDOM && isArray(object) === false) || (failString && isString(object)) || isArguments(object)) {
@@ -56,4 +56,6 @@ export default function slice(array, start, end) {
 
   /* eslint-disable-next-line prefer-rest-params */
   return nativeSlice.apply(object, arrayLikeSlice(arguments, 1));
-}
+};
+
+export default slice;

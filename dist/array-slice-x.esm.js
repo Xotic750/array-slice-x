@@ -36,7 +36,7 @@ var failDOM = resultDocElement ? resultDocElement.threw : false;
  * @returns {Array} A new array containing the extracted elements.
  */
 
-export default function slice(array, start, end) {
+var slice = function slice(array, start, end) {
   var object = toObject(array);
 
   if (failArray || failDOM && isArray(object) === false || failString && isString(object) || isArguments(object)) {
@@ -46,6 +46,8 @@ export default function slice(array, start, end) {
 
 
   return nativeSlice.apply(object, arrayLikeSlice(arguments, 1));
-}
+};
+
+export default slice;
 
 //# sourceMappingURL=array-slice-x.esm.js.map
