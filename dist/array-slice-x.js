@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-17T18:40:03.531Z",
+  "date": "2019-07-17T19:08:14.340Z",
   "describe": "",
   "description": "Cross-browser array slicer.",
   "file": "array-slice-x.js",
-  "hash": "042a688d9892d5efb348",
+  "hash": "de8bd20a4b90dcf336e7",
   "license": "MIT",
-  "version": "4.0.9"
+  "version": "4.0.10"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -120,7 +120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -131,7 +131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 var toStr = Object.prototype.toString;
-var hasSymbols = __webpack_require__(6)();
+var hasSymbols = __webpack_require__(5)();
 
 if (hasSymbols) {
 	var symToStr = Symbol.prototype.toString;
@@ -193,15 +193,6 @@ module.exports = function isPrimitive(val) {
 
 "use strict";
 
-module.exports = 9007199254740991;
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 var strValue = String.prototype.valueOf;
 var tryStringObject = function tryStringObject(value) {
@@ -224,7 +215,7 @@ module.exports = function isString(value) {
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -262,7 +253,7 @@ module.exports = supportsStandardArguments ? isStandardArguments : isLegacyArgum
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -289,14 +280,14 @@ module.exports = function isDateObject(value) {
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
 var origSymbol = global.Symbol;
-var hasSymbolSham = __webpack_require__(8);
+var hasSymbolSham = __webpack_require__(7);
 
 module.exports = function hasNativeSymbols() {
 	if (typeof origSymbol !== 'function') { return false; }
@@ -307,10 +298,10 @@ module.exports = function hasNativeSymbols() {
 	return hasSymbolSham();
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(6)))
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports) {
 
 var g;
@@ -336,7 +327,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -385,7 +376,7 @@ module.exports = function hasSymbols() {
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -448,7 +439,7 @@ var to_object_x_esm_toObject = function toObject(value) {
 
 
 // EXTERNAL MODULE: ./node_modules/is-arguments/index.js
-var is_arguments = __webpack_require__(4);
+var is_arguments = __webpack_require__(3);
 var is_arguments_default = /*#__PURE__*/__webpack_require__.n(is_arguments);
 
 // CONCATENATED MODULE: ./node_modules/attempt-x/dist/attempt-x.esm.js
@@ -579,7 +570,7 @@ var is_primitive = __webpack_require__(1);
 var is_primitive_default = /*#__PURE__*/__webpack_require__.n(is_primitive);
 
 // EXTERNAL MODULE: ./node_modules/is-date-object/index.js
-var is_date_object = __webpack_require__(5);
+var is_date_object = __webpack_require__(4);
 var is_date_object_default = /*#__PURE__*/__webpack_require__.n(is_date_object);
 
 // CONCATENATED MODULE: ./node_modules/to-boolean-x/dist/to-boolean-x.esm.js
@@ -1715,13 +1706,9 @@ var to_integer_x_esm_toInteger2018 = function toInteger2018(value) {
 /* harmony default export */ var to_integer_x_esm = (to_integer_x_esm_toInteger2018);
 
 
-// EXTERNAL MODULE: ./node_modules/max-safe-integer/index.js
-var max_safe_integer = __webpack_require__(2);
-var max_safe_integer_default = /*#__PURE__*/__webpack_require__.n(max_safe_integer);
-
 // CONCATENATED MODULE: ./node_modules/to-length-x/dist/to-length-x.esm.js
 
-
+var MAX_SAFE_INTEGER = 9007199254740991;
 /**
  * Converts `value` to an integer suitable for use as the length of an
  * array-like object. (ES2016).
@@ -1737,8 +1724,8 @@ function toLength2016(value) {
     return 0;
   }
 
-  if (len > max_safe_integer_default.a) {
-    return max_safe_integer_default.a;
+  if (len > MAX_SAFE_INTEGER) {
+    return MAX_SAFE_INTEGER;
   }
 
   return len;
@@ -1758,8 +1745,8 @@ var to_length_x_esm_toLength2018 = function toLength2018(value) {
     return 0;
   }
 
-  if (len > max_safe_integer_default.a) {
-    return max_safe_integer_default.a;
+  if (len > MAX_SAFE_INTEGER) {
+    return MAX_SAFE_INTEGER;
   }
 
   return len;
@@ -1785,7 +1772,7 @@ var hasBoxed = boxedString[0] === has_boxed_string_x_esm_string && 0 in boxedStr
 
 
 // EXTERNAL MODULE: ./node_modules/is-string/index.js
-var is_string = __webpack_require__(3);
+var is_string = __webpack_require__(2);
 var is_string_default = /*#__PURE__*/__webpack_require__.n(is_string);
 
 // CONCATENATED MODULE: ./node_modules/split-if-boxed-bug-x/dist/split-if-boxed-bug-x.esm.js
