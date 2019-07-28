@@ -7,22 +7,28 @@ import isString from 'is-string';
 
 const nativeSlice = [].slice;
 
-const resultArray = nativeSlice ? attempt.call([1, 2, 3], nativeSlice, 1, 2) : null;
-const failArray = resultArray
-  ? resultArray.threw || isArray(resultArray.value) === false || resultArray.value.length !== 1 || resultArray.value[0] !== 2
-  : false;
+const testArray = function testArray() {
+  const res = attempt.call([1, 2, 3], nativeSlice, 1, 2);
 
-const resultString = nativeSlice ? attempt.call('abc', nativeSlice, 1, 2) : null;
-const failString = resultString
-  ? resultString.threw ||
-    isArray(resultString.value) === false ||
-    resultString.value.length !== 1 ||
-    resultString.value[0] !== 'b'
-  : false;
+  return res.threw || isArray(res.value) === false || res.value.length !== 1 || res.value[0] !== 2;
+};
 
-const doc = typeof document !== 'undefined' && document;
-const resultDocElement = nativeSlice && doc ? attempt.call(doc.documentElement, nativeSlice).threw : null;
-const failDOM = resultDocElement ? resultDocElement.threw : false;
+const testString = function testString() {
+  const res = attempt.call('abc', nativeSlice, 1, 2);
+
+  return res.threw || isArray(res.value) === false || res.value.length !== 1 || res.value[0] !== 'b';
+};
+
+const testDOM = function testDOM() {
+  const doc = typeof document !== 'undefined' && document;
+  const resultDocElement = doc ? attempt.call(doc.documentElement, nativeSlice).threw : false;
+
+  return resultDocElement ? resultDocElement.threw : false;
+};
+
+const failArray = testArray();
+const failString = testString();
+const failDOM = testDOM();
 
 /**
  * The slice() method returns a shallow copy of a portion of an array into a new

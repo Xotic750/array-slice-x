@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-27T21:34:13.229Z",
+  "date": "2019-07-28T20:56:09.834Z",
   "describe": "",
   "description": "Cross-browser array slicer.",
   "file": "array-slice-x.js",
-  "hash": "a965781ca6b69c6d3bc4",
+  "hash": "c16bbca597d90ae1ec52",
   "license": "MIT",
   "version": "4.0.25"
 }
@@ -1694,13 +1694,26 @@ var array_like_slice_x_esm_slice = function slice(arrayLike, start, end) {
 
 
 var nativeSlice = [].slice;
-var resultArray = nativeSlice ? attempt_x_esm.call([1, 2, 3], nativeSlice, 1, 2) : null;
-var failArray = resultArray ? resultArray.threw || is_array_x_esm(resultArray.value) === false || resultArray.value.length !== 1 || resultArray.value[0] !== 2 : false;
-var resultString = nativeSlice ? attempt_x_esm.call('abc', nativeSlice, 1, 2) : null;
-var failString = resultString ? resultString.threw || is_array_x_esm(resultString.value) === false || resultString.value.length !== 1 || resultString.value[0] !== 'b' : false;
-var doc = typeof document !== 'undefined' && document;
-var resultDocElement = nativeSlice && doc ? attempt_x_esm.call(doc.documentElement, nativeSlice).threw : null;
-var failDOM = resultDocElement ? resultDocElement.threw : false;
+
+var array_slice_x_esm_testArray = function testArray() {
+  var res = attempt_x_esm.call([1, 2, 3], nativeSlice, 1, 2);
+  return res.threw || is_array_x_esm(res.value) === false || res.value.length !== 1 || res.value[0] !== 2;
+};
+
+var array_slice_x_esm_testString = function testString() {
+  var res = attempt_x_esm.call('abc', nativeSlice, 1, 2);
+  return res.threw || is_array_x_esm(res.value) === false || res.value.length !== 1 || res.value[0] !== 'b';
+};
+
+var array_slice_x_esm_testDOM = function testDOM() {
+  var doc = typeof document !== 'undefined' && document;
+  var resultDocElement = doc ? attempt_x_esm.call(doc.documentElement, nativeSlice).threw : false;
+  return resultDocElement ? resultDocElement.threw : false;
+};
+
+var failArray = array_slice_x_esm_testArray();
+var failString = array_slice_x_esm_testString();
+var failDOM = array_slice_x_esm_testDOM();
 /**
  * The slice() method returns a shallow copy of a portion of an array into a new
  * array object selected from begin to end (end not included). The original

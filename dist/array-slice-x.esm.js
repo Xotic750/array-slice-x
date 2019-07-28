@@ -5,13 +5,26 @@ import arrayLikeSlice from 'array-like-slice-x';
 import attempt from 'attempt-x';
 import isString from 'is-string';
 var nativeSlice = [].slice;
-var resultArray = nativeSlice ? attempt.call([1, 2, 3], nativeSlice, 1, 2) : null;
-var failArray = resultArray ? resultArray.threw || isArray(resultArray.value) === false || resultArray.value.length !== 1 || resultArray.value[0] !== 2 : false;
-var resultString = nativeSlice ? attempt.call('abc', nativeSlice, 1, 2) : null;
-var failString = resultString ? resultString.threw || isArray(resultString.value) === false || resultString.value.length !== 1 || resultString.value[0] !== 'b' : false;
-var doc = typeof document !== 'undefined' && document;
-var resultDocElement = nativeSlice && doc ? attempt.call(doc.documentElement, nativeSlice).threw : null;
-var failDOM = resultDocElement ? resultDocElement.threw : false;
+
+var testArray = function testArray() {
+  var res = attempt.call([1, 2, 3], nativeSlice, 1, 2);
+  return res.threw || isArray(res.value) === false || res.value.length !== 1 || res.value[0] !== 2;
+};
+
+var testString = function testString() {
+  var res = attempt.call('abc', nativeSlice, 1, 2);
+  return res.threw || isArray(res.value) === false || res.value.length !== 1 || res.value[0] !== 'b';
+};
+
+var testDOM = function testDOM() {
+  var doc = typeof document !== 'undefined' && document;
+  var resultDocElement = doc ? attempt.call(doc.documentElement, nativeSlice).threw : false;
+  return resultDocElement ? resultDocElement.threw : false;
+};
+
+var failArray = testArray();
+var failString = testString();
+var failDOM = testDOM();
 /**
  * The slice() method returns a shallow copy of a portion of an array into a new
  * array object selected from begin to end (end not included). The original
