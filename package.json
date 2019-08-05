@@ -1,6 +1,6 @@
 {
   "name": "array-slice-x",
-  "version": "4.0.26",
+  "version": "4.0.27",
   "description": "Cross-browser array slicer.",
   "homepage": "https://github.com/Xotic750/array-slice-x",
   "author": {
@@ -54,7 +54,7 @@
     "attempt-x": "^2.0.23",
     "cached-constructors-x": "^2.0.25",
     "is-arguments": "^1.0.4",
-    "is-array-x": "^2.0.23",
+    "is-array-x": "^2.0.24",
     "is-string": "^1.0.4",
     "to-object-x": "^2.0.21"
   },
