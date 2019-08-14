@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-14T14:05:36.020Z",
+  "date": "2019-08-14T14:59:56.603Z",
   "describe": "",
   "description": "Cross-browser array slicer.",
   "file": "array-slice-x.js",
   "hash": "808c8879cb8ddda6a4fd",
   "license": "MIT",
-  "version": "4.1.0"
+  "version": "4.2.0"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
