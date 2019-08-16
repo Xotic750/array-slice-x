@@ -57,6 +57,7 @@
     "is-arguments": "^1.0.4",
     "is-array-x": "^2.1.0",
     "is-string": "^1.0.4",
+    "simple-methodize-x": "^1.0.2",
     "to-object-x": "^2.2.0"
   },
   "devDependencies": {
